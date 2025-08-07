@@ -8,7 +8,7 @@ import modules.processors.frame.core
 from modules.core import update_status
 from modules.face_analyser import get_one_face, get_many_faces
 from modules.typing import Face, Frame
-from modules.utilities import conditional_download, resolve_relative_path, is_image, is_video
+from modules.utilities import conditional_download, resolve_relative_path, path_has_file, is_image, is_video
 
 FACE_SWAPPER = None
 THREAD_LOCK = threading.Lock()
@@ -17,6 +17,8 @@ NAME = 'REACTOR.FACE-SWAPPER'
 
 def pre_check() -> bool:
     download_directory_path = resolve_relative_path('../models')
+    if path_has_file(download_directory_path, "inswapper_128.onxx"):
+        return True
     conditional_download(download_directory_path, ['https://github.com/facefusion/facefusion-assets/releases/download/models/inswapper_128.onnx'])
     return True
 

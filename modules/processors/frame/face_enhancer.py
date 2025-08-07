@@ -8,7 +8,7 @@ import modules.processors.frame.core
 from modules.core import update_status
 from modules.face_analyser import get_one_face
 from modules.typing import Frame, Face
-from modules.utilities import conditional_download, resolve_relative_path, is_image, is_video
+from modules.utilities import conditional_download, resolve_relative_path, path_has_file, is_image, is_video
 
 FACE_ENHANCER = None
 THREAD_SEMAPHORE = threading.Semaphore()
@@ -18,6 +18,8 @@ NAME = 'REACTOR.FACE-ENHANCER'
 
 def pre_check() -> bool:
     download_directory_path = resolve_relative_path('../models')
+    if path_has_file(download_directory_path, "GFPGANv1.4.pth"):
+        return True
     conditional_download(download_directory_path, ['https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/GFPGANv1.4.pth'])
     return True
 

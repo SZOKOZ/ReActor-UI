@@ -17,5 +17,6 @@ __pycache__/
 models/
 temp/
 venv/
+testvenv/
 workflow/
 gfpgan/
