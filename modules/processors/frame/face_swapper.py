@@ -19,7 +19,7 @@ def pre_check() -> bool:
     download_directory_path = resolve_relative_path('../models')
     if path_has_file(download_directory_path, "inswapper_128.onxx"):
         return True
-    conditional_download(download_directory_path, ['https://github.com/facefusion/facefusion-assets/releases/download/models/inswapper_128.onnx'])
+    conditional_download(download_directory_path, ['https://github.com/SZOKOZ/ReActor-UI/releases/download/inswapper/inswapper_128.onnx'])
     return True
 
 
