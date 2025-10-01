@@ -3,6 +3,7 @@ import insightface
 
 import modules.globals
 from modules.typing import Frame
+from modules.utilities import resolve_relative_path
 
 FACE_ANALYSER = None
 
@@ -11,7 +12,8 @@ def get_face_analyser() -> Any:
     global FACE_ANALYSER
 
     if FACE_ANALYSER is None:
-        FACE_ANALYSER = insightface.app.FaceAnalysis(name='buffalo_l', providers=modules.globals.execution_providers)
+        root = resolve_relative_path('../models')
+        FACE_ANALYSER = insightface.app.FaceAnalysis(name='buffalo_l', root=root, providers=modules.globals.execution_providers)
         FACE_ANALYSER.prepare(ctx_id=0, det_size=(640, 640))
     return FACE_ANALYSER
 
