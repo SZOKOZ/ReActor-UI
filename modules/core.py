@@ -5,7 +5,6 @@ if any(arg.startswith('--execution-provider') for arg in sys.argv):
     os.environ['OMP_NUM_THREADS'] = '1'
 # reduce tensorflow log level
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
 import warnings
 from typing import List
 import platform
@@ -17,16 +16,8 @@ import onnxruntime
 import tensorflow
 
 import modules.globals
-if os.environ.get('DISPLAY','') == '':
-    print('no display found. Using :0.0')
-    os.environ.__setitem__('DISPLAY', ':0.0')
-    modules.globals.headless = True
-
 import modules.metadata
-
-if not modules.globals.headless:
-    import modules.ui as ui
-
+import modules.ui as ui
 from modules.processors.frame.core import get_frame_processors_modules
 from modules.utilities import has_image_extension, is_image, is_video, detect_fps, create_video, extract_frames, get_temp_frame_paths, restore_audio, create_temp, move_temp, clean_temp, normalize_output_path
 
@@ -250,8 +241,9 @@ def run() -> None:
         if not frame_processor.pre_check():
             return
     limit_resources()
-    if modules.globals.headless:
+    start()
+    """if modules.globals.headless:
         start()
     else:
         window = ui.init(start, destroy)
-        window.mainloop()
+        window.mainloop()"""
