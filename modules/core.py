@@ -21,9 +21,12 @@ if os.environ.get('DISPLAY','') == '':
     print('no display found. Using :0.0')
     os.environ.__setitem__('DISPLAY', ':0.0')
     modules.globals.headless = True
-    
+
 import modules.metadata
-import modules.ui as ui
+
+if not modules.globals.headless:
+    import modules.ui as ui
+
 from modules.processors.frame.core import get_frame_processors_modules
 from modules.utilities import has_image_extension, is_image, is_video, detect_fps, create_video, extract_frames, get_temp_frame_paths, restore_audio, create_temp, move_temp, clean_temp, normalize_output_path
 
